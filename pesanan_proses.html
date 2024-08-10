@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesanan di Proses</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+      <!-- Header -->
+      <header class="bg-blue-500 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">POS Penjualan Warung Mbah Karmi</h1>
+            <!-- Navbar -->
+            <nav class="space-x-4">
+                <a href="/penjualan_pos.html" class="hover:text-gray-200">Penjualan</a>
+                <a href="/pesanan_proses.html" class="hover:text-gray-200">Pesanan di Proses</a>
+                <a href="#total-transaksi" class="hover:text-gray-200">Total Transaksi Berhasil</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto py-6">
+        <div id="order-list" class="bg-white p-6 shadow rounded">
+            <h2 class="text-xl font-bold mb-4">Daftar Pesanan</h2>
+            <!-- Pesanan akan ditampilkan di sini -->
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="mt-6 flex justify-between">
+            <button id="prev-btn" class="bg-blue-500 text-white py-2 px-4 rounded" onclick="changePage(-1)">Sebelumnya</button>
+            <span id="page-info" class="font-semibold"></span>
+            <button id="next-btn" class="bg-blue-500 text-white py-2 px-4 rounded" onclick="changePage(1)">Selanjutnya</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let currentPage = 1;
+        const itemsPerPage = 5;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrders();
+
+            function loadOrders() {
+                const orderList = document.getElementById('order-list');
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+                // Sort orders by most recent first
+                orders.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+                // Calculate pagination
+                const totalPages = Math.ceil(orders.length / itemsPerPage);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, orders.length);
+
+                // Clear existing orders
+                orderList.innerHTML = '';
+
+                // Display orders for the current page
+                if (orders.length === 0) {
+                    orderList.innerHTML = '<p class="text-gray-600">Tidak ada pesanan yang sedang diproses.</p>';
+                    return;
+                }
+
+                for (let i = startIndex; i < endIndex; i++) {
+                    const order = orders[i];
+                    const orderElement = document.createElement('div');
+                    orderElement.classList.add('border', 'p-4', 'rounded', 'mb-4', 'shadow');
+
+                    let itemsList = '';
+                    order.items.forEach(item => {
+                        itemsList += `<li>${item.name} - Qty: ${item.quantity} - Rp ${(item.price * item.quantity).toLocaleString()}</li>`;
+                    });
+
+                    orderElement.innerHTML = `
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="font-semibold">Order ID: ${order.id}</p>
+                                <p class="text-sm text-gray-600">Waktu: ${order.time}</p>
+                                <ul class="mt-2 list-disc list-inside">
+                                    ${itemsList}
+                                </ul>
+                                <p class="mt-2 font-semibold">Total: Rp ${order.total.toLocaleString()}</p>
+                            </div>
+                            <div>
+                                <button class="mt-4 bg-red-500 text-white py-2 px-4 rounded" onclick="deleteOrder(${order.id})">Hapus</button>
+                            </div>
+                        </div>
+                    `;
+                    orderList.appendChild(orderElement);
+                }
+
+                // Update pagination info
+                document.getElementById('page-info').innerText = `Halaman ${currentPage} dari ${totalPages}`;
+                document.getElementById('prev-btn').disabled = currentPage === 1;
+                document.getElementById('next-btn').disabled = currentPage === totalPages;
+            }
+
+            window.changePage = function(direction) {
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                const totalPages = Math.ceil(orders.length / itemsPerPage);
+
+                currentPage += direction;
+                currentPage = Math.max(1, Math.min(currentPage, totalPages));
+                loadOrders();
+            };
+
+            window.deleteOrder = function(orderId) {
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Pesanan ini akan dihapus secara permanen.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+                        orders = orders.filter(order => order.id !== orderId);
+                        localStorage.setItem('orders', JSON.stringify(orders));
+                        loadOrders();
+
+                        Swal.fire(
+                            'Dihapus!',
+                            'Pesanan berhasil dihapus.',
+                            'success'
+                        );
+                    }
+                });
+            };
+        });
+    </script>
+</body>
+
+</html>
