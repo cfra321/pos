@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Penjualan</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+   <!-- Header -->
+   <header class="bg-blue-500 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold">POS Penjualan Warung Mbah Karmi</h1>
+        <!-- Navbar -->
+        <nav class="space-x-4">
+            <a href="/index.html" class="hover:text-gray-200">Penjualan</a>
+            <a href="/pesanan_proses.html" class="hover:text-gray-200">Pesanan di Proses</a>
+            <a href="/transaksi_total.html" class="hover:text-gray-200">Total Transaksi Berhasil</a>
+        </nav>
+    </div>
+</header>
+    <!-- Main Content -->
+    <div class="container mx-auto py-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Daftar Produk -->
+            <div class="bg-white p-6 shadow rounded col-span-1 sm:col-span-2 lg:col-span-2">
+                <h2 class="text-xl font-bold mb-4">Daftar Produk</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="product-list">
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="/foto_manakan/Rawon.png" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Rawon Daging</h3>
+                        <p class="text-gray-600">Rp 20,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Rawon Daging', 20000)">Tambahkan</button>
+                    </div>
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="/foto_manakan/Ayampenyet.png" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Ayam Penyet</h3>
+                        <p class="text-gray-600">Rp 18,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Ayam Penyet', 18000)">Tambahkan</button>
+                    </div>
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="/foto_manakan/soto.jpg" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Soto Madiun</h3>
+                        <p class="text-gray-600">Rp 12,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Soto Madiun', 12000)">Tambahkan</button>
+                    </div>
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="/foto_manakan/sopiga.png" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Sop Iga Sapi</h3>
+                        <p class="text-gray-600">Rp 22,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Sop Iga Sapi', 22000)">Tambahkan</button>
+                    </div>
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="/foto_manakan/Ikan.png" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Ikan Gurame</h3>
+                        <p class="text-gray-600">Rp 25,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Ikan Gurame', 25000)">Tambahkan</button>
+                    </div>
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="/foto_manakan/airputih.png" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Air Putih Es</h3>
+                        <p class="text-gray-600">Rp 3,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Air Putih Es', 3000)">Tambahkan</button>
+                    </div>
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="/foto_manakan/esteh.jpg" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Es Teh Manis</h3>
+                        <p class="text-gray-600">Rp 5,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Es Teh Manis', 5000)">Tambahkan</button>
+                    </div>
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="/foto_manakan/esjeruk.png" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Es Jeruk Manis</h3>
+                        <p class="text-gray-600">Rp 7,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Es Jeruk Manis', 7000)">Tambahkan</button>
+                    </div>
+                    <!-- Tambahkan produk lain sesuai kebutuhan -->
+                </div>
+            </div>
+
+            <!-- Keranjang Belanja -->
+            <div class="bg-white p-6 shadow rounded col-span-1 lg:col-span-1">
+                <h2 class="text-xl font-bold mb-4">Keranjang Belanja</h2>
+                <ul class="space-y-2" id="cart-items">
+                    <!-- Item Keranjang akan ditambahkan di sini -->
+                </ul>
+                <div class="mt-4">
+                    <div class="flex justify-between">
+                        <span class="font-semibold">Total:</span>
+                        <span class="font-semibold" id="total-price">Rp 0</span>
+                    </div>
+                    <button class="mt-4 bg-green-500 text-white py-2 px-4 w-full rounded text-xs" onclick="processPayment()">Proses Pembayaran</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let totalPrice = 0;
+        let cart = [];
+
+        function addToCart(productName, productPrice) {
+            const existingItem = cart.find(item => item.name === productName);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+                updateCartItem(existingItem);
+            } else {
+                const newItem = {
+                    id: cart.length,
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                };
+                cart.push(newItem);
+                renderCartItem(newItem);
+            }
+
+            totalPrice += productPrice;
+            updateTotalPrice();
+        }
+
+        function updateCartItem(item) {
+            const cartItemElement = document.getElementById(`cart-item-${item.id}`);
+            cartItemElement.querySelector('.item-quantity').innerText = `Qty: ${item.quantity}`;
+            cartItemElement.querySelector('.item-total').innerText = `Rp ${(item.price * item.quantity).toLocaleString()}`;
+        }
+
+        function changeQuantity(itemId, change) {
+            const item = cart.find(item => item.id === itemId);
+
+            if (item) {
+                item.quantity += change;
+                if (item.quantity === 0) {
+                    cart = cart.filter(item => item.id !== itemId);
+                    document.getElementById(`cart-item-${item.id}`).remove();
+                } else {
+                    updateCartItem(item);
+                }
+                totalPrice += item.price * change;
+                updateTotalPrice();
+            }
+        }
+
+        function renderCartItem(item) {
+            const cartItems = document.getElementById('cart-items');
+
+            const newItemElement = document.createElement('li');
+            newItemElement.classList.add('flex', 'justify-between', 'items-center', 'bg-gray-100', 'p-2', 'rounded');
+            newItemElement.setAttribute('id', `cart-item-${item.id}`);
+
+            newItemElement.innerHTML = `
+                <span>${item.name} - <span class="item-quantity">Qty: ${item.quantity}</span></span>
+                <span class="item-total">Rp ${(item.price * item.quantity).toLocaleString()}</span>
+                <div class="flex items-center space-x-2">
+                    <button class="bg-red-500 text-white px-2 py-1 rounded text-xs" onclick="changeQuantity(${item.id}, -1)">-</button>
+                    <button class="bg-green-500 text-white px-2 py-1 rounded text-xs" onclick="changeQuantity(${item.id}, 1)">+</button>
+                </div>
+            `;
+            cartItems.appendChild(newItemElement);
+        }
+
+        function updateTotalPrice() {
+            document.getElementById('total-price').innerText = `Rp ${totalPrice.toLocaleString()}`;
+        }
+
+        function processPayment() {
+            if (cart.length === 0) {
+                alert("Keranjang belanja kosong.");
+                return;
+            }
+
+            Swal.fire({
+                title: 'Konfirmasi Pembayaran',
+                text: 'Apakah Anda yakin ingin memproses pembayaran?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    completePayment();
+                }
+            });
+        }
+
+        function completePayment() {
+            const order = {
+                id: Date.now(),
+                time: new Date().toLocaleString(),
+                items: cart,
+                total: totalPrice
+            };
+
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            Swal.fire({
+                title: 'Pembayaran Berhasil!',
+                text: 'Pesanan Anda sedang diproses.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                cart = [];
+                totalPrice = 0;
+                document.getElementById('cart-items').innerHTML = '';
+                updateTotalPrice();
+            });
+        }
+    </script>
+</body>
+
+</html>
