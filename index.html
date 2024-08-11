@@ -11,17 +11,31 @@
 
 <body class="bg-gray-100 min-h-screen">
    <!-- Header -->
-   <header class="bg-blue-500 text-white p-4">
+<header class="bg-blue-500 text-white p-4">
     <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold">POS Penjualan Warung Mbah Karmi</h1>
+        <h1 class="text-2xl font-bold">Warung Mbah Karmi</h1>
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+            <button id="menu-btn" class="focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
         <!-- Navbar -->
-        <nav class="space-x-4">
+        <nav id="menu" class="hidden md:flex space-x-4">
             <a href="index.html" class="hover:text-gray-200">Penjualan</a>
-            <a href="pesanan_proses.html" class="hover:text-gray-200">Pesanan di Proses</a>-
+            <a href="pesanan_proses.html" class="hover:text-gray-200">Pesanan di Proses</a>
             <a href="transaksi_total.html" class="hover:text-gray-200">Total Transaksi Berhasil</a>
         </nav>
     </div>
 </header>
+    <!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden md:hidden bg-blue-500 text-white p-4 space-y-2">
+    <a href="index.html" class="block hover:text-gray-200">Penjualan</a>
+    <a href="pesanan_proses.html" class="block hover:text-gray-200">Pesanan di Proses</a>
+    <a href="transaksi_total.html" class="block hover:text-gray-200">Total Transaksi Berhasil</a>
+</div>
     <!-- Main Content -->
     <div class="container mx-auto py-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -29,20 +43,14 @@
             <div class="bg-white p-6 shadow rounded col-span-1 sm:col-span-2 lg:col-span-2">
                 <h2 class="text-xl font-bold mb-4">Daftar Produk</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="product-list">
-                    <!-- Produk Item -->
-                    <div class="bg-gray-200 p-4 rounded">
-                        <img src="foto_manakan/Rawon.webp" alt="Product Image" class="w-full mb-2 rounded product-image">
-                        <h3 class="text-lg font-semibold">Rawon Daging</h3>
-                        <p class="text-gray-600">Rp 20,000</p>
-                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Rawon Daging', 20000)">Tambahkan</button>
-                    </div>
-                    <!-- Produk Item -->
-                    <div class="bg-gray-200 p-4 rounded">
+                     <!-- Produk Item -->
+                     <div class="bg-gray-200 p-4 rounded">
                         <img src="foto_manakan/Ayampenyet.webp" alt="Product Image" class="w-full mb-2 rounded product-image">
                         <h3 class="text-lg font-semibold">Ayam Penyet</h3>
                         <p class="text-gray-600">Rp 18,000</p>
                         <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Ayam Penyet', 18000)">Tambahkan</button>
                     </div>
+
                     <!-- Produk Item -->
                     <div class="bg-gray-200 p-4 rounded">
                         <img src="foto_manakan/soto.webp" alt="Product Image" class="w-full mb-2 rounded product-image">
@@ -50,12 +58,22 @@
                         <p class="text-gray-600">Rp 12,000</p>
                         <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Soto Madiun', 12000)">Tambahkan</button>
                     </div>
+
                     <!-- Produk Item -->
                     <div class="bg-gray-200 p-4 rounded">
-                        <img src="foto_manakan/sopiga.webp" alt="Product Image" class="w-full mb-2 rounded product-image">
-                        <h3 class="text-lg font-semibold">Sop Iga Sapi</h3>
-                        <p class="text-gray-600">Rp 22,000</p>
-                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Sop Iga Sapi', 22000)">Tambahkan</button>
+                        <img src="foto_manakan/Rawon.webp" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Rawon Daging</h3>
+                        <p class="text-gray-600">Rp 20,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Rawon Daging', 20000)">Tambahkan</button>
+                    </div>
+                   
+                    
+                    <!-- Produk Item -->
+                    <div class="bg-gray-200 p-4 rounded">
+                        <img src="foto_manakan/pecelMadiun.webp" alt="Product Image" class="w-full mb-2 rounded product-image">
+                        <h3 class="text-lg font-semibold">Pecel Madiun</h3>
+                        <p class="text-gray-600">Rp 8,000</p>
+                        <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Pecel Madiun', 8000)">Tambahkan</button>
                     </div>
                     <!-- Produk Item -->
                     <div class="bg-gray-200 p-4 rounded">
@@ -85,6 +103,7 @@
                         <p class="text-gray-600">Rp 7,000</p>
                         <button class="mt-2 bg-blue-500 text-white py-1 px-2 rounded text-xs" onclick="addToCart('Es Jeruk Manis', 7000)">Tambahkan</button>
                     </div>
+                   
                     <!-- Tambahkan produk lain sesuai kebutuhan -->
                 </div>
             </div>
@@ -220,6 +239,15 @@
                 updateTotalPrice();
             });
         }
+
+        <!-- Script for Mobile Menu Toggle -->
+
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
     </script>
 </body>
 
